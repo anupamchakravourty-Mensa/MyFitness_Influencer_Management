@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyFitness × BRND.ME — Influencer Gifting</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ───────────────────────────────────────── */
+:root {
+  --navy:     #0F1B2D;
+  --navy-l:   #162236;
+  --card:     #1A2A3F;
+  --card-h:   #213247;
+  --border:   #253649;
+  --orange:   #E8732A;
+  --orange-l: #F08040;
+  --yellow:   #F5C842;
+  --white:    #F8F6F2;
+  --muted:    #7A8FA6;
+  --green:    #27AE60;
+  --r:        12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── ANNOUNCE BAR ─────────────────────────────────── */
+.announce {
+  background: var(--orange);
+  color: var(--white);
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.announce span { color: var(--yellow); }
+
+/* ── HEADER ──────────────────────────────────────── */
+header {
+  background: rgba(15,27,45,0.96);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 32px;
+  backdrop-filter: blur(12px);
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+}
+.brand-block { display: flex; align-items: center; gap: 12px; }
+.brand-logo {
+  width: 40px; height: 40px;
+  background: var(--orange);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.brand-text {}
+.brand-name {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+}
+.brand-name span { color: var(--orange); }
+.brand-sub {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 2px;
+  font-weight: 500;
+}
+.brand-sub em { color: var(--yellow); font-style: normal; font-weight: 700; }
+.cart-btn {
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+}
+.cart-btn:hover { background: var(--orange-l); transform: translateY(-1px); }
+.cart-count {
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 900;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 32px 72px;
+  text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(232,115,42,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(245,200,66,0.08) 0%, transparent 60%);
+}
+/* Floating circles */
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.05;
+}
+.hero-circle-1 { width: 400px; height: 400px; background: var(--orange); top: -100px; right: -100px; }
+.hero-circle-2 { width: 300px; height: 300px; background: var(--yellow); bottom: -80px; left: -60px; }
+.hero-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232,115,42,0.15);
+  border: 1px solid rgba(232,115,42,0.3);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(44px, 7vw, 76px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+.hero-title .highlight { color: var(--orange); }
+.hero-title .highlight-y { color: var(--yellow); }
+.hero-tagline {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+.hero-desc {
+  font-size: 14px;
+  color: rgba(248,246,242,0.5);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  font-weight: 300;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-pills {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: rgba(248,246,242,0.65);
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.hero-pill:hover { background: rgba(232,115,42,0.1); border-color: var(--orange); color: var(--white); }
+
+/* ── CATALOG ─────────────────────────────────────── */
+.catalog-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 52px 32px;
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+.section-title span { color: var(--orange); }
+.catalog-count { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+/* Filter tabs */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 7px 18px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--orange); color: var(--white); }
+.filter-btn.active { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+/* Grid */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+/* Product Card */
+.product-card {
+  background: var(--card);
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(232,115,42,0.12);
+  border-color: rgba(232,115,42,0.3);
+}
+.card-img-wrap {
+  position: relative;
+  background: var(--navy-l);
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+.product-card:hover .card-img-wrap img { transform: scale(1.05); }
+.card-img-placeholder { font-size: 56px; opacity: 0.2; }
+.card-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.badge-bestseller { background: var(--yellow); color: var(--navy); }
+.badge-outofstock { background: rgba(255,255,255,0.1); color: #666; }
+
+.card-body { padding: 16px 16px 18px; }
+.card-category {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.card-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.card-volume {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.card-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.status-dot.in { background: var(--green); }
+.status-dot.out { background: #333; }
+.card-action {
+  width: 100%;
+  padding: 10px;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.card-action:hover { background: var(--orange-l); transform: scale(1.02); }
+.card-action.out-btn { background: var(--border); color: #555; cursor: not-allowed; }
+.card-action.out-btn:hover { background: var(--border); transform: none; }
+
+/* Loading */
+.loading-state { text-align: center; padding: 80px 20px; color: var(--muted); }
+.loading-dots span {
+  display: inline-block;
+  width: 10px; height: 10px;
+  background: var(--orange);
+  border-radius: 50%;
+  margin: 0 4px;
+  animation: bounce 1.2s infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
+  40% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* ── CART SIDEBAR ─────────────────────────────────── */
+.cart-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,20,35,0.7);
+  z-index: 200;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: 380px; max-width: 95vw;
+  height: 100vh;
+  background: var(--navy-l);
+  border-left: 1px solid var(--border);
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column;
+}
+.cart-drawer.open { transform: translateX(0); }
+.cart-head {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cart-head-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px; font-weight: 900; color: var(--white);
+}
+.cart-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted); }
+.cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+.cart-empty-msg { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; font-weight: 500; }
+.cart-item {
+  display: flex; gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.cart-item-img {
+  width: 56px; height: 56px;
+  border-radius: 10px;
+  background: var(--navy);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; overflow: hidden;
+}
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.cart-item-info { flex: 1; }
+.cart-item-title { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800; color: var(--white); line-height: 1.3; }
+.cart-item-category { font-size: 11px; color: var(--orange); margin-top: 2px; font-weight: 600; }
+.cart-item-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
+.cart-item-remove:hover { color: var(--orange); }
+.cart-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+.cart-summary { font-size: 13px; color: var(--muted); margin-bottom: 14px; font-weight: 500; }
+.cart-checkout-btn {
+  width: 100%; padding: 14px;
+  background: var(--orange); color: var(--white);
+  border: none; border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  transition: background 0.2s;
+}
+.cart-checkout-btn:hover { background: var(--orange-l); }
+.cart-checkout-btn:disabled { background: var(--border); color: #555; cursor: not-allowed; }
+
+/* ── PRODUCT MODAL ────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,20,35,0.8);
+  z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 520px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  transform: translateY(16px);
+  transition: transform 0.25s;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-img {
+  width: 100%; height: 260px;
+  background: var(--navy-l);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px; overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+.modal-img img { width: 100%; height: 100%; object-fit: cover; }
+.modal-body { padding: 24px; }
+.modal-category { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); font-weight: 700; margin-bottom: 6px; }
+.modal-title { font-family: 'Nunito', sans-serif; font-size: 26px; font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+.modal-asin { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.modal-volume {
+  display: inline-block;
+  background: rgba(245,200,66,0.12);
+  border: 1px solid rgba(245,200,66,0.3);
+  color: var(--yellow);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 12px; border-radius: 50px;
+  margin-bottom: 18px;
+}
+.modal-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.modal-stock-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 50px;
+  font-size: 12px; font-weight: 700; margin-bottom: 20px;
+}
+.modal-stock-badge.in { background: rgba(39,174,96,0.12); color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+.modal-stock-badge.out { background: rgba(255,255,255,0.05); color: #555; }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal-add-btn {
+  flex: 1; padding: 13px;
+  background: var(--orange); color: var(--white);
+  border: none; border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-add-btn:hover { background: var(--orange-l); }
+.modal-add-btn:disabled { background: var(--border); color: #555; cursor: not-allowed; }
+.modal-close-btn {
+  padding: 13px 20px; background: none;
+  color: var(--muted); border: 1px solid var(--border);
+  border-radius: 50px; font-family: 'Nunito', sans-serif;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.modal-close-btn:hover { border-color: var(--orange); color: var(--white); }
+
+/* ── ORDER FORM ───────────────────────────────────── */
+.order-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,20,35,0.85);
+  z-index: 400;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+.order-overlay.open { opacity: 1; pointer-events: all; }
+.order-modal {
+  background: var(--card); border-radius: 16px;
+  border: 1px solid var(--border);
+  max-width: 480px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  transform: translateY(16px); transition: transform 0.25s;
+}
+.order-overlay.open .order-modal { transform: translateY(0); }
+.order-head {
+  background: linear-gradient(135deg, var(--orange), #D4621F);
+  padding: 22px 24px;
+  border-radius: 16px 16px 0 0;
+}
+.order-head-title { font-family: 'Nunito', sans-serif; font-size: 26px; font-weight: 900; color: var(--white); }
+.order-head-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 3px; font-weight: 500; }
+.order-body { padding: 24px; }
+.order-summary {
+  background: var(--navy-l);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px; margin-bottom: 20px;
+}
+.order-summary-title { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.order-summary-item { font-size: 13px; color: var(--white); padding: 4px 0; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.order-summary-item::before { content: '💪'; font-size: 12px; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.form-input, .form-textarea {
+  width: 100%; padding: 12px 16px;
+  border: 1px solid var(--border); border-radius: var(--r);
+  font-family: 'Inter', sans-serif; font-size: 14px;
+  color: var(--white); background: var(--navy-l); outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--orange); }
+.form-textarea { resize: vertical; min-height: 90px; }
+.form-submit {
+  width: 100%; padding: 14px;
+  background: var(--orange); color: var(--white);
+  border: none; border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px; font-weight: 900; cursor: pointer;
+  transition: background 0.2s; margin-top: 4px;
+}
+.form-submit:hover { background: var(--orange-l); }
+.form-cancel {
+  width: 100%; padding: 10px; background: none;
+  color: var(--muted); border: none;
+  font-family: 'Inter', sans-serif; font-size: 13px;
+  cursor: pointer; margin-top: 8px; text-decoration: underline;
+}
+.brndme-tag { text-align: center; font-size: 11px; color: var(--muted); margin-top: 16px; letter-spacing: 0.5px; }
+.brndme-tag em { color: var(--yellow); font-style: normal; font-weight: 700; }
+
+/* ── SUCCESS ──────────────────────────────────────── */
+.success-screen { display: none; text-align: center; padding: 48px 24px; }
+.success-screen.show { display: block; }
+.success-icon { font-size: 60px; margin-bottom: 16px; }
+.success-title { font-family: 'Nunito', sans-serif; font-size: 32px; font-weight: 900; color: var(--white); margin-bottom: 10px; }
+.success-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; font-weight: 400; }
+.success-back-btn {
+  padding: 13px 32px;
+  background: var(--orange); color: var(--white);
+  border: none; border-radius: 50px;
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: background 0.2s;
+}
+.success-back-btn:hover { background: var(--orange-l); }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  margin-top: 60px;
+}
+.footer-logo { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: var(--white); }
+.footer-logo span { color: var(--orange); }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 24px 52px; }
+  .catalog-section { padding: 32px 16px; }
+  header { padding: 0 16px; }
+  .cart-drawer { width: 100vw; }
+  .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .card-img-wrap { height: 170px; }
+  footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="announce">
+  Exclusive Influencer Gifting · <span>MyFitness</span> × BRND.ME · Health ka Tasty Partner 💪
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand-block">
+      <div class="brand-logo">💪</div>
+      <div class="brand-text">
+        <div class="brand-name">My<span>Fitness</span></div>
+        <div class="brand-sub">Nutrition & Wellness &nbsp;·&nbsp; by <em>BRND.ME</em></div>
+      </div>
+    </div>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 My Picks
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-circle hero-circle-1"></div>
+  <div class="hero-circle hero-circle-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Influencer Gifting — Exclusive Access
+    </div>
+    <h1 class="hero-title">
+      Health ka<br>
+      <span class="highlight">Tasty</span> <span class="highlight-y">Partner</span>
+    </h1>
+    <div class="hero-tagline">Diet mein sirf protein nahi, taste bhi chahiye</div>
+    <p class="hero-desc">
+      India's No. 1 Peanut Butter brand — US FDA registered, NABL lab tested. Pick the products you'd love to share with your community, completely complimentary.
+    </p>
+    <div class="hero-pills">
+      <span class="hero-pill">🥜 Peanut Butter</span>
+      <span class="hero-pill">🍫 Dark Chocolate</span>
+      <span class="hero-pill">💪 High Protein</span>
+      <span class="hero-pill">🇮🇳 Made in India</span>
+      <span class="hero-pill">✅ US FDA Registered</span>
+    </div>
+  </div>
+</section>
+
+<section class="catalog-section">
+  <div class="section-header">
+    <h2 class="section-title">Browse the <span>Range</span></h2>
+    <span class="catalog-count" id="catalogCount">Loading products...</span>
+  </div>
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" onclick="filterCatalog('all', this)">All</button>
+  </div>
+  <div class="catalog-grid" id="catalogGrid">
+    <div class="loading-state" id="loadingState" style="grid-column:1/-1">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <p style="margin-top:16px;font-size:13px;font-weight:500;">Loading products...</p>
+    </div>
+  </div>
+</section>
+
+<!-- Cart -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <span class="cart-head-title">My Picks 💪</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty-msg">Your picks will appear here 🥜</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-summary" id="cartSummary"></div>
+    <button class="cart-checkout-btn" id="checkoutBtn" onclick="openOrderForm()" disabled>Place Free Order</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-body">
+      <div class="modal-category" id="modalCategory"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-asin" id="modalAsin"></div>
+      <div class="modal-volume" id="modalVolume"></div>
+      <div class="modal-label">Availability</div>
+      <div class="modal-stock-badge in" id="modalStock">✅ In Stock</div>
+      <div class="modal-actions">
+        <button class="modal-add-btn" id="modalAddBtn" onclick="addToCartFromModal()">Add to My Picks</button>
+        <button class="modal-close-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Form -->
+<div class="order-overlay" id="orderOverlay">
+  <div class="order-modal">
+    <div id="orderFormContent">
+      <div class="order-head">
+        <div class="order-head-title">Complete Your Request</div>
+        <div class="order-head-sub">Free gifting — no payment required 🥜</div>
+      </div>
+      <div class="order-body">
+        <div class="order-summary">
+          <div class="order-summary-title">Your Picks</div>
+          <div id="orderSummaryItems"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input class="form-input" type="text" id="fieldName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact Number *</label>
+          <input class="form-input" type="tel" id="fieldContact" placeholder="Your phone number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Delivery Address *</label>
+          <textarea class="form-textarea" id="fieldAddress" placeholder="Full address including city and pincode"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitOrder()">Submit Request 💪</button>
+        <button class="form-cancel" onclick="closeOrderForm()">Back to picks</button>
+        <div class="brndme-tag">MyFitness × <em>BRND.ME</em> · Influencer Gifting Program</div>
+      </div>
+    </div>
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🥜</div>
+      <div class="success-title">Request Received!</div>
+      <div class="success-desc">Thank you! Your gifting request has been placed. Our team will process your order and get in touch with shipping details soon.</div>
+      <button class="success-back-btn" onclick="resetAll()">Browse More Products</button>
+      <div class="brndme-tag" style="margin-top:20px;">MyFitness × <em>BRND.ME</em></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">My<span>Fitness</span></div>
+  <div class="footer-copy">© 2026 BRND.ME · Influencer Gifting Program · India's No. 1 Peanut Butter Brand</div>
+</footer>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────
+const SHEET_ID        = '1OIrmgumHnObBGlNWd5KMJjpH8x4LFoxdYTT6ZppwleQ';
+const API_KEY         = 'AIzaSyDAkVIC8G7v8wrZdfvZBMzd5dpHCTMPfg4';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiorVu5gz5-wbq3yQG0HU1WHCagslIRKFLUtBYcQ5EZDdrsOylvwLyanRYp0Lu9c-R/exec';
+const CATALOG_SHEET   = 'Catalog_Master';
+
+// Col A(0)=EAN B(1)=Brand C(2)=ASIN D(3)=SKU E(4)=Category
+// F(5)=Image formula G(6)=Image URL H(7)=Product Title
+// I(8)=Short Title J(9)=Volume K(10)=Available QTY
+// L(11)=Stock Status M(12)=Stock Source N(13)=Sales Count
+// O(14)=Eligible P(15)=Show on Page?
+
+let products = [];
+let cart = [];
+let activeFilter = 'all';
+let currentProduct = null;
+
+async function loadCatalog() {
+  try {
+    const range = encodeURIComponent(CATALOG_SHEET + '!A2:P502');
+    const url   = 'https://sheets.googleapis.com/v4/spreadsheets/' + SHEET_ID + '/values/' + range + '?key=' + API_KEY;
+    const res   = await fetch(url);
+    const data  = await res.json();
+    if (!data.values) { showError('No products found.'); return; }
+    products = data.values
+      .filter(row => row[15] && row[15].includes('YES'))
+      .map(row => ({
+        ean:        row[0]  || '',
+        brand:      row[1]  || 'MyFitness',
+        asin:       row[2]  || '',
+        sku:        row[3]  || '',
+        category:   row[4]  || 'Nutrition',
+        image:      row[6]  || '',
+        title:      row[7]  || '',
+        shortTitle: row[8]  || row[7] || '',
+        volume:     row[9]  || '',
+        availQty:   parseInt(row[10]) || 0,
+        stockStatus:row[11] || '',
+        salesCount: parseInt(row[13]) || 0,
+        eligible:   row[14] || '',
+        show:       row[15] || '',
+        inStock:    row[11] && row[11].includes('In Stock'),
+      }));
+    renderFilters();
+    renderCatalog(products);
+    document.getElementById('catalogCount').textContent =
+      products.filter(p => p.inStock).length + ' products available';
+  } catch (err) {
+    showError('Could not load products. Please refresh.');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('loadingState').innerHTML = '<p style="color:var(--orange);font-size:14px;font-weight:600;">' + msg + '</p>';
+}
+
+function renderFilters() {
+  const cats = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
+  document.getElementById('filterBar').innerHTML = cats.map(c =>
+    '<button class="filter-btn ' + (c === 'all' ? 'active' : '') + '" onclick="filterCatalog(\'' + c + '\', this)">' +
+    (c === 'all' ? 'All' : c) + '</button>'
+  ).join('');
+}
+
+function renderCatalog(items) {
+  const grid = document.getElementById('catalogGrid');
+  document.getElementById('loadingState')?.remove();
+  if (items.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;color:var(--muted)"><p style="font-size:48px;margin-bottom:12px">🥜</p><p style="font-size:15px;font-weight:600;">No products in this category.</p></div>';
+    return;
+  }
+  grid.innerHTML = items.map(p => {
+    const inCart  = cart.some(c => c.ean === p.ean);
+    const badge   = p.salesCount > 500 ? '<span class="card-badge badge-bestseller">⭐ Bestseller</span>' : '';
+    const imgHtml = p.image ? '<img src="' + p.image + '" alt="' + (p.shortTitle || p.title) + '" onerror="this.style.display=\'none\'">' : '';
+    const ph      = '<span class="card-img-placeholder" style="' + (p.image ? 'display:none' : '') + '">🥜</span>';
+    return '<div class="product-card" onclick="openModal(\'' + p.ean + '\')">' +
+      '<div class="card-img-wrap">' + imgHtml + ph + badge +
+      (!p.inStock ? '<span class="card-badge badge-outofstock">Out of Stock</span>' : '') + '</div>' +
+      '<div class="card-body">' +
+      '<div class="card-category">' + p.category + '</div>' +
+      '<div class="card-title">' + (p.shortTitle || p.title) + '</div>' +
+      (p.volume ? '<div class="card-volume">' + p.volume + '</div>' : '') +
+      '<div class="card-status"><span class="status-dot ' + (p.inStock ? 'in' : 'out') + '"></span>' +
+      '<span style="font-size:12px;color:var(--muted);font-weight:500">' + (p.inStock ? 'In Stock' : 'Out of Stock') + '</span></div>' +
+      '<button class="card-action ' + (!p.inStock ? 'out-btn' : '') + '" ' +
+      (!p.inStock ? 'disabled' : '') + ' onclick="event.stopPropagation();' +
+      (p.inStock ? 'quickAdd(\'' + p.ean + '\')' : '') + '">' +
+      (inCart ? '✓ Added!' : p.inStock ? 'Add to Picks' : 'Out of Stock') + '</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+function filterCatalog(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCatalog(cat === 'all' ? products : products.filter(p => p.category === cat));
+}
+
+function openModal(ean) {
+  const p = products.find(x => x.ean === ean);
+  if (!p) return;
+  currentProduct = p;
+  document.getElementById('modalImg').innerHTML = p.image
+    ? '<img src="' + p.image + '" alt="' + (p.shortTitle || p.title) + '" onerror="this.parentElement.innerHTML=\'🥜\'">'
+    : '🥜';
+  document.getElementById('modalCategory').textContent = p.category;
+  document.getElementById('modalTitle').textContent    = p.shortTitle || p.title;
+  document.getElementById('modalAsin').textContent     = p.asin ? 'ASIN: ' + p.asin : '';
+  const volEl = document.getElementById('modalVolume');
+  volEl.textContent   = p.volume || '';
+  volEl.style.display = p.volume ? 'inline-block' : 'none';
+  const stockBadge = document.getElementById('modalStock');
+  stockBadge.className   = 'modal-stock-badge ' + (p.inStock ? 'in' : 'out');
+  stockBadge.textContent = p.inStock ? '✅ In Stock' : '❌ Out of Stock';
+  const addBtn = document.getElementById('modalAddBtn');
+  const inCart = cart.some(c => c.ean === p.ean);
+  addBtn.disabled    = !p.inStock || inCart;
+  addBtn.textContent = inCart ? '✓ Already Added' : 'Add to My Picks';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentProduct = null;
+}
+
+function addToCartFromModal() {
+  if (!currentProduct) return;
+  addToCart(currentProduct.ean);
+  closeModal();
+}
+
+function quickAdd(ean) { addToCart(ean); }
+
+function addToCart(ean) {
+  const p = products.find(x => x.ean === ean);
+  if (!p || !p.inStock || cart.some(c => c.ean === ean)) return;
+  cart.push(p);
+  updateCartUI();
+  renderCatalog(activeFilter === 'all' ? products : products.filter(p => p.category === activeFilter));
+}
+
+function removeFromCart(ean) {
+  cart = cart.filter(c => c.ean !== ean);
+  updateCartUI();
+  renderCatalog(activeFilter === 'all' ? products : products.filter(p => p.category === activeFilter));
+}
+
+function updateCartUI() {
+  const count = cart.length;
+  document.getElementById('cartCount').textContent   = count;
+  document.getElementById('checkoutBtn').disabled    = count === 0;
+  document.getElementById('cartSummary').textContent = count > 0 ? count + ' item' + (count > 1 ? 's' : '') + ' selected' : '';
+  const el = document.getElementById('cartItems');
+  if (count === 0) { el.innerHTML = '<div class="cart-empty-msg">Your picks will appear here 🥜</div>'; return; }
+  el.innerHTML = cart.map(p =>
+    '<div class="cart-item">' +
+    '<div class="cart-item-img">' + (p.image ? '<img src="' + p.image + '" onerror="this.parentElement.innerHTML=\'🥜\'">' : '🥜') + '</div>' +
+    '<div class="cart-item-info"><div class="cart-item-title">' + (p.shortTitle || p.title) + '</div>' +
+    '<div class="cart-item-category">' + p.category + '</div></div>' +
+    '<button class="cart-item-remove" onclick="removeFromCart(\'' + p.ean + '\')">✕</button>' +
+    '</div>'
+  ).join('');
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openOrderForm() {
+  closeCart();
+  document.getElementById('orderSummaryItems').innerHTML =
+    cart.map(p => '<div class="order-summary-item">' + (p.shortTitle || p.title) + '</div>').join('');
+  document.getElementById('orderOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeOrderForm() {
+  document.getElementById('orderOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitOrder() {
+  const name    = document.getElementById('fieldName').value.trim();
+  const contact = document.getElementById('fieldContact').value.trim();
+  const address = document.getElementById('fieldAddress').value.trim();
+  if (!name || !contact || !address) { alert('Please fill in all fields before submitting.'); return; }
+  const btn = document.querySelector('.form-submit');
+  btn.textContent = 'Submitting...';
+  btn.disabled    = true;
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orders: cart.map(p => ({
+        timestamp: new Date().toISOString(),
+        orderId:   'MF-' + Date.now(),
+        name, contact, address,
+        ean: p.ean, asin: p.asin, sku: p.sku,
+        brand: p.brand, category: p.category,
+        title: p.shortTitle || p.title, image: p.image,
+      }))})
+    });
+    document.getElementById('orderFormContent').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+  } catch (err) {
+    btn.textContent = 'Submit Request 💪';
+    btn.disabled    = false;
+    alert('Something went wrong. Please try again.');
+  }
+}
+
+function resetAll() {
+  cart = [];
+  updateCartUI();
+  closeOrderForm();
+  document.getElementById('orderFormContent').style.display = '';
+  document.getElementById('successScreen').classList.remove('show');
+  ['fieldName','fieldContact','fieldAddress'].forEach(id => document.getElementById(id).value = '');
+  renderCatalog(products);
+}
+
+document.addEventListener('DOMContentLoaded', loadCatalog);
+</script>
+</body>
+</html>
