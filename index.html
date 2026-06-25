@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>MyFitness × BRND.ME — Influencer Gifting</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -22,6 +22,12 @@
   --r:        12px;
 }
 
+
+/* ── TOUCH OPTIMISATIONS ──────────────────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+input, textarea, select { font-size: 16px !important; } /* Prevents iOS zoom on focus */
+body { -webkit-text-size-adjust: 100%; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -595,15 +601,138 @@ footer {
 .footer-logo span { color: var(--orange); }
 .footer-copy { font-size: 12px; color: var(--muted); }
 
-@media (max-width: 600px) {
-  .hero { padding: 60px 24px 52px; }
-  .catalog-section { padding: 32px 16px; }
-  header { padding: 0 16px; }
-  .cart-drawer { width: 100vw; }
-  .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .card-img-wrap { height: 170px; }
-  footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+/* ════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE OVERHAUL — Brand Portals
+   Breakpoints: 768px (tablet), 480px (mobile)
+   ════════════════════════════════════════════════════ */
+
+/* ── TABLET (768px) ──────────────────────────────── */
+@media (max-width: 768px) {
+  /* Header */
+  header { padding: 0 20px; }
+  .header-inner { height: 60px; }
+  .brand-name { font-size: 20px; }
+  .brand-sub { display: none; }
+  .cart-btn { padding: 8px 14px; font-size: 12px; gap: 6px; }
+
+  /* Hero */
+  .hero { padding: 72px 24px 56px; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 2px; margin-bottom: 16px; }
+  .hero-title { font-size: clamp(38px, 9vw, 56px); }
+  .hero-tagline { font-size: 14px; }
+  .hero-desc { font-size: 13px; margin-bottom: 28px; }
+  .hero-pills { gap: 6px; }
+  .hero-pill { font-size: 11px; padding: 5px 12px; }
+
+  /* Catalog */
+  .catalog-section { padding: 40px 20px; }
+  .section-title { font-size: 28px; }
+  .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card-img-wrap { height: 180px; }
+
+  /* Filter bar — horizontally scrollable */
+  .filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    margin-bottom: 24px;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; white-space: nowrap; }
+
+  /* Cart drawer */
+  .cart-drawer { width: 100vw; max-width: 100vw; }
+
+  /* Modals — full screen on tablet */
+  .modal { max-width: 100%; border-radius: 16px 16px 0 0; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal-img { height: 220px; border-radius: 16px 16px 0 0; }
+
+  /* Order form */
+  .order-overlay { padding: 0; align-items: flex-end; }
+  .order-modal { max-width: 100%; border-radius: 16px 16px 0 0; max-height: 95vh; }
+  .order-head { border-radius: 16px 16px 0 0; }
+
+  /* Footer */
+  footer { flex-direction: column; text-align: center; padding: 20px 24px; gap: 8px; }
 }
+
+/* ── MOBILE (480px) ──────────────────────────────── */
+@media (max-width: 480px) {
+  /* Announce bar */
+  .announce { font-size: 10px; letter-spacing: 1px; padding: 7px 12px; }
+
+  /* Header */
+  header { padding: 0 16px; }
+  .header-inner { height: 56px; }
+  .brand-name { font-size: 18px; }
+  .cart-btn { padding: 7px 12px; font-size: 11px; border-radius: 8px; }
+  .cart-btn span:not(.cart-count) { display: none; }
+
+  /* Hero */
+  .hero { padding: 64px 20px 48px; }
+  .hero-title { font-size: clamp(32px, 10vw, 44px); letter-spacing: -0.5px; }
+  .hero-subtitle { font-size: 13px; letter-spacing: 3px; }
+  .hero-tagline { font-size: 13px; margin-bottom: 16px; }
+  .hero-desc { font-size: 13px; line-height: 1.7; margin-bottom: 24px; }
+  .hero-badge { font-size: 10px; padding: 5px 12px; }
+  .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+  .hero-pills { gap: 6px; }
+  .hero-pill { font-size: 10px; padding: 5px 10px; }
+
+  /* Catalog */
+  .catalog-section { padding: 28px 16px 40px; }
+  .section-header { margin-bottom: 16px; }
+  .section-title { font-size: 24px; }
+  .catalog-count { font-size: 12px; }
+  .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  /* Cards */
+  .card-img-wrap { height: 160px; }
+  .card-body { padding: 10px 12px 12px; }
+  .card-category { font-size: 9px; margin-bottom: 3px; }
+  .card-title { font-size: 13px; line-height: 1.25; margin-bottom: 3px; }
+  .card-volume { font-size: 10px; margin-bottom: 6px; }
+  .card-status { margin-bottom: 8px; }
+  .card-status span { font-size: 10px !important; }
+  .card-action { padding: 8px; font-size: 11px; border-radius: 8px; }
+
+  /* Cart drawer */
+  .cart-drawer { width: 100vw; }
+  .cart-head { padding: 16px 20px; }
+  .cart-head-title { font-size: 18px; }
+  .cart-items { padding: 12px 20px; }
+  .cart-footer { padding: 12px 20px; }
+  .cart-checkout-btn { padding: 13px; font-size: 14px; }
+  .cart-item-img { width: 48px; height: 48px; font-size: 18px; }
+  .cart-item-title { font-size: 14px; }
+
+  /* Product modal */
+  .modal-img { height: 200px; }
+  .modal-body { padding: 18px 20px; }
+  .modal-title { font-size: 20px; }
+  .modal-actions { flex-direction: column; gap: 8px; }
+  .modal-add-btn { padding: 13px; font-size: 13px; }
+  .modal-close-btn { padding: 11px; font-size: 12px; text-align: center; }
+
+  /* Order form */
+  .order-head { padding: 18px 20px; }
+  .order-head-title { font-size: 22px; }
+  .order-body { padding: 18px 20px; }
+  .form-input, .form-textarea { font-size: 16px; padding: 12px 14px; }
+  .form-submit { font-size: 15px; padding: 14px; }
+
+  /* Success screen */
+  .success-icon { font-size: 48px; }
+  .success-title { font-size: 26px; }
+  .success-desc { font-size: 13px; }
+
+  /* Section title (catalog) */
+  .section-title { font-size: 24px; }
+}
+
 </style>
 </head>
 <body>
