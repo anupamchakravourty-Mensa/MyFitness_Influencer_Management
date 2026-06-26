@@ -71,11 +71,11 @@ header{background:rgba(15,27,45,.96);border-bottom:1px solid var(--border);posit
 .card-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:50px;font-size:10px;font-weight:700;}
 .badge-bestseller{background:var(--yellow);color:var(--navy);}
 .badge-outofstock{background:rgba(255,255,255,.1);color:#666;}
-.card-body{padding:16px 16px 18px;}
+.card-body{display:flex;flex-direction:column;padding:16px 16px 18px;}
 .card-category{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:5px;}
-.card-title{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--white);line-height:1.3;margin-bottom:4px;}
+.card-title{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--white);line-height:1.3;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;height:calc(16px * 1.3 * 4);}
 .card-volume{font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:.5px;margin-bottom:10px;}
-.card-status{display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:12px;}
+.card-status{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:auto;margin-bottom:12px;}
 .status-dot{width:7px;height:7px;border-radius:50%;}
 .status-dot.in{background:var(--green);}.status-dot.out{background:#333;}
 .card-action{width:100%;padding:10px;background:var(--orange);color:var(--white);border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:background .2s,transform .15s;}
